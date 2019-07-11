@@ -1,6 +1,6 @@
 package browser
 
-type Page struct {
+type page struct {
 	Title string
 	Body  string
 }

@@ -7,7 +7,7 @@ import (
 )
 
 func Listen(port int64) {
-	http.HandleFunc("/", RequestResponseHandler)
+	http.HandleFunc("/", requestResponseHandler)
 	log.Printf("Listening on %d", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }

@@ -7,12 +7,12 @@ import (
 )
 
 func Browser(path string) string {
-	page := AllBrowser(path)
-	return PageRenderer(page)
+	page := allBrowser(path)
+	return pageRenderer(page)
 }
 
-func AllBrowser(path string) Page {
-	var x Page
+func allBrowser(path string) page {
+	var x page
 
 	fi, err := os.Stat(path)
 	if err != nil {
@@ -21,19 +21,19 @@ func AllBrowser(path string) Page {
 	}
 
 	if fi.Mode().IsDir() {
-		return DirectoryBrowser(path)
+		return dirBrowser(path)
 	}
 
 	if fi.Mode().IsRegular() {
-		return FileBrowser(path)
+		return fileBrowser(path)
 	}
 
 	x.Body = fmt.Sprintf("un supported type <br>%s %s", path, fi.Mode().String())
 	return x
 }
 
-func DirectoryBrowser(path string) Page {
-	var x Page
+func dirBrowser(path string) page {
+	var x page
 
 	dirContents, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -61,8 +61,8 @@ func DirectoryBrowser(path string) Page {
 	return x
 }
 
-func FileBrowser(path string) Page {
-	var x Page
+func fileBrowser(path string) page {
+	var x page
 
 	fileContent, err := ioutil.ReadFile(path)
 	if err != nil {
