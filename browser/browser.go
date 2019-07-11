@@ -12,12 +12,12 @@ func Browser(path string) string {
 }
 
 func allBrowser(path string) page {
-	var x page
+	var page page
 
 	fi, err := os.Stat(path)
 	if err != nil {
-		x.Body = err.Error()
-		return x
+		page.Body = err.Error()
+		return page
 	}
 
 	if fi.Mode().IsDir() {
@@ -28,20 +28,20 @@ func allBrowser(path string) page {
 		return fileBrowser(path)
 	}
 
-	x.Body = fmt.Sprintf("un supported type <br>%s %s", path, fi.Mode().String())
-	return x
+	page.Body = fmt.Sprintf("un supported type <br>%s %s", path, fi.Mode().String())
+	return page
 }
 
 func dirBrowser(path string) page {
-	var x page
+	var page page
 
 	dirContents, err := ioutil.ReadDir(path)
 	if err != nil {
-		x.Title = err.Error()
-		return x
+		page.Title = err.Error()
+		return page
 	}
 
-	x.Title = path
+	page.Title = path
 
 	if path[len(path)-1] == '/' {
 		path = path[0 : len(path)-1]
@@ -56,22 +56,22 @@ func dirBrowser(path string) page {
 	}
 	dirList += "</ul>"
 
-	x.Body = fmt.Sprintf("<pre>%s</pre>", dirList)
+	page.Body = fmt.Sprintf("<pre>%s</pre>", dirList)
 
-	return x
+	return page
 }
 
 func fileBrowser(path string) page {
-	var x page
+	var page page
 
 	fileContent, err := ioutil.ReadFile(path)
 	if err != nil {
-		x.Title = err.Error()
-		return x
+		page.Title = err.Error()
+		return page
 	}
 
-	x.Title = path
-	x.Body = fmt.Sprintf("<pre>%s</pre>", string(fileContent))
+	page.Title = path
+	page.Body = fmt.Sprintf("<pre>%s</pre>", string(fileContent))
 
-	return x
+	return page
 }
