@@ -6,7 +6,12 @@ import (
 	"os"
 )
 
-func Browser(path string) Page {
+func Browser(path string) string {
+	page := AllBrowser(path)
+	return PageRenderer(page)
+}
+
+func AllBrowser(path string) Page {
 	var x Page
 
 	fi, err := os.Stat(path)
